@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
@@ -34,10 +35,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		
 		http
 			.authorizeRequests()
-				.anyRequest().authenticated()
+				.antMatchers("/css/**", "/login").permitAll()
+				.antMatchers("/projectexplorer", "/viewproject").authenticated()
 				.and()
 			.formLogin()
 				.loginPage("/login")
+				.defaultSuccessUrl("/projectexplorer", true)
 				.permitAll()
 				.and()
 			.logout()
@@ -72,5 +75,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				}
 			}
 		});
+	}
+	
+	@Override
+	public void configure(WebSecurity web) throws Exception
+	{
+		web.ignoring().antMatchers("/js/**", "/webjars/**");
 	}
 }
