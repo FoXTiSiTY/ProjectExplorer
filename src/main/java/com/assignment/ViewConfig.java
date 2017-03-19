@@ -13,5 +13,6 @@ public class ViewConfig extends WebMvcConfigurerAdapter
         registry.addRedirectViewController("/", "/projectexplorer");
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/projectexplorer").setViewName("projectexplorer");
+        registry.addViewController("/viewproject").setViewName("viewproject");
 	}
 }

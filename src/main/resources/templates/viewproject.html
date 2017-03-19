@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>Project Details</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <link rel="stylesheet" type="text/css" href="css/styles.css">
+	</head>
+	<body>
+		<span>Hi, you are viewing the project!</span>
+		<input type="text" th:field="*{project.title}" />
+		<input type="text" th:field="*{project.description}" />
+		<!-- To use type="date" or not.... that is the question... (Formatting issues) -->
+		<input type="date" th:field="*{project.start_date}" />
+		<input type="date" th:field="*{project.end_date}" />
+		<input type="checkbox" th:field="*{project.is_billable}" />
+		<input type="checkbox" th:field="*{project.is_active}" />
+		
+		<h2>Tasks:</h2>
+		<table>
+			<thead>
+				<tr>
+					<th></th>
+					<th>Title</th>
+					<th>Due Date</th>
+					<th>Estimated Hours</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each="task : ${project.task_set}">
+					<form th:action="@{/viewtask}" method="post">
+						<td>
+							<button type="submit" name="action" th:value="${task.id}">View</button>
+						</td>
+						<td th:text="${task.title}"></td>
+						<td th:text="${task.due_date} ? ${#dates.format(task.due_date, 'dd-MMM-yyyy')}"></td>
+						<td th:text="${task.estimated_hours}"></td>
+					</form>
+				</tr>
+			</tbody>
+		</table>
+		
+		<h2>Resources:</h2>
+		<table>
+			<thead>
+				<tr>
+					<th></th>
+					<th>User</th>
+					<th>Start Date</th>
+					<th>End Date</th>
+					<th>Rate</th>
+					<th>Agreed Hours p/m</th>
+					<th>Created</th>
+					<th>Updated</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each="res : ${project.resource_set}">
+					<form th:action="@{/viewresource}" method="post">
+						<td>
+							<button type="submit" name="action" th:value="${res.id}">View</button>
+						</td>
+						<td th:text="${res.user}"></td>
+						<td th:text="${res.start_date} ? ${#dates.format(res.start_date, 'dd-MMM-yyyy')}"></td>
+						<td th:text="${res.end_date} ? ${#dates.format(res.end_date, 'dd-MMM-yyyy')}"></td>
+						<td th:text="${res.rate}"></td>
+						<td th:text="${res.agreed_hours_per_month}"></td>
+						<td th:text="${res.created}"></td>
+						<td th:text="${res.updated}"></td>
+					</form>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

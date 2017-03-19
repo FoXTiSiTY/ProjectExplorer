@@ -1,11 +1,42 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Handling Form Submission</title>
+    <title>Projects</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
 	<span>Hello World! I have been authenticated!</span>
-	<p th:text="'Token: ' + ${test.token}" />
+	
+	<table>
+		<thead>
+			<tr>
+				<th></th>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Start Date</th>
+				<th>End Date</th>
+				<th>Billable</th>
+				<th>Active</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="project : ${projects}">
+				<form th:action="@{/viewproject}" method="post">
+					<td>
+						<button type="submit" name="action" th:value="${project.pk}">View</button>
+					</td>
+					<td th:text="${project.title}"></td>
+					<td th:text="${project.description}"></td>
+					<td th:text="${project.start_date} ? ${#dates.format(project.start_date, 'dd-MMM-yyyy')}"></td>
+					<td th:text="${project.end_date} ? ${#dates.format(project.end_date, 'dd-MMM-yyyy')}"></td>
+					<td th:if="${project.is_billable}">Yes</td><td th:unless="${project.is_billable}">No</td>
+					<td th:if="${project.is_active}">Yes</td><td th:unless="${project.is_active}">No</td>
+				</form>
+			</tr>
+		</tbody>
+	</table>
+<!-- 	<p th:text="'Token: ' + ${test.token}" /> -->
 </body>
 </html>
