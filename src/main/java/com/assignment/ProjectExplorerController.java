@@ -32,8 +32,11 @@ public class ProjectExplorerController
 	private Map<Integer, Resources> resourcesMapped;
 	
 	@GetMapping("/projectexplorer")
+<<<<<<< HEAD
 	public String loginForm(Model model) 
 	{
+		
+>>>>>>> 6cf4bc429015f3a02fd362bb193eaf2e0f63d7c4
 		String token = (String) request.getSession().getAttribute("Token"); // Request token from Session.
 		
 		HttpHeaders header = new HttpHeaders();
