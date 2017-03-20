@@ -7,73 +7,144 @@
 	    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
 	    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js" th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
 		<link rel="stylesheet" type="text/css" th:href="@{css/styles.css}" />
+		<script src="js/animate.js" th:src="@{js/animate.js}"></script>
 	</head>
 	<body>
-		<span>Hi, you are viewing the project!</span>
-		<input type="text" th:field="*{project.title}" />
-		<input type="text" th:field="*{project.description}" />
-		<!-- To use type="date" or not.... that is the question... (Formatting issues) -->
-		<input type="date" th:field="*{project.start_date}" />
-		<input type="date" th:field="*{project.end_date}" />
-		<input type="checkbox" th:field="*{project.is_billable}" />
-		<input type="checkbox" th:field="*{project.is_active}" />
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<ul class="nav navbar-nav">
+					<li><a href="/">Home</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<form th:action="@{/logout}" method="post">
+				           <input type="submit" value="Log Out" class="logout-button"/>
+						</form>
+					</li>
+				</ul>
+			</div>
+		</nav>
 		
-		<h2>Tasks:</h2>
-		<table>
-			<thead>
-				<tr>
-					<th></th>
-					<th>Title</th>
-					<th>Due Date</th>
-					<th>Estimated Hours</th>
-				</tr>
-			</thead>
+		<div class="container">
+			<div class="row">
+				<div class="panel-heading">
+					<div class="panel-title">
+						<h2 class="title">Project Details</h2>
+					</div>
+					<hr />
+	            </div>
+			</div>
 			
-			<tbody>
-				<tr th:each="task : ${project.task_set}">
-					<form th:action="@{/viewtask}" method="post">
-						<td>
-							<button type="submit" name="action" th:value="${task.id}">View</button>
-						</td>
-						<td th:text="${task.title}"></td>
-						<td th:text="${task.due_date} ? ${#dates.format(task.due_date, 'dd-MMM-yyyy')}"></td>
-						<td th:text="${task.estimated_hours}"></td>
-					</form>
-				</tr>
-			</tbody>
-		</table>
-		
-		<h2>Resources:</h2>
-		<table>
-			<thead>
-				<tr>
-					<th></th>
-					<th>User</th>
-					<th>Start Date</th>
-					<th>End Date</th>
-					<th>Rate</th>
-					<th>Agreed Hours p/m</th>
-					<th>Created</th>
-					<th>Updated</th>
-				</tr>
-			</thead>
+			<div class="row detail-row">
+				<div class="col-md-3">
+					<label for="title" class="control-label">Title</label><br />
+					<input id="title" type="text" th:field="*{project.title}" class="form-control" />
+				</div>
+				<div class="col-md-3">
+					<label for="description" class="control-label">Description</label><br />
+					<input id="description" type="text" th:field="*{project.description}" class="form-control" />
+				</div>
+				<div class="col-md-3">
+					<label for="start_date" class="control-label">Start Date</label><br />
+					<!-- To use type="date" or not.... that is the question... (Formatting issues) -->
+					<input id="start_date" type="date" th:field="*{project.start_date}" class="form-control" />
+				</div>
+				<div class="col-md-3">
+					<label for="end_date" class="control-label">End Date</label><br />
+					<input id="end_date" type="date" th:field="*{project.end_date}" class="form-control" />
+				</div>
+				<div class="col-md-3">
+					<label for="billable" class="control-label">Billable</label><br />
+					<input id="billable" type="checkbox" th:field="*{project.is_billable}" />
+				</div>
+				<div class="col-md-3">
+					<label for="active" class="control-label">Active</label><br />
+					<input id="active" type="checkbox" th:field="*{project.is_active}" />
+				</div>
+			</div>
 			
-			<tbody>
-				<tr th:each="res : ${project.resource_set}">
-					<form th:action="@{/viewresource}" method="post">
-						<td>
-							<button type="submit" name="action" th:value="${res.id}">View</button>
-						</td>
-						<td th:text="${res.user}"></td>
-						<td th:text="${res.start_date} ? ${#dates.format(res.start_date, 'dd-MMM-yyyy')}"></td>
-						<td th:text="${res.end_date} ? ${#dates.format(res.end_date, 'dd-MMM-yyyy')}"></td>
-						<td th:text="${res.rate}"></td>
-						<td th:text="${res.agreed_hours_per_month}"></td>
-						<td th:text="${res.created}"></td>
-						<td th:text="${res.updated}"></td>
-					</form>
-				</tr>
-			</tbody>
-		</table>
+			<div class="row">
+    			<div class="panel-heading">
+					<div class="panel-title">
+						<h2 class="title">Tasks</h2>
+						<hr />
+					</div>
+	            </div>
+            </div>
+			
+			<div class="row">
+				<table class="table table-hover table-striped table-bordered">
+					<thead>
+						<tr>
+							<th style="width: 80px;"></th>
+							<th>Title</th>
+							<th>Due Date</th>
+							<th>Estimated Hours</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<tr th:each="task : ${project.task_set}">
+							<form th:action="@{/viewtask}" method="get">
+								<td>
+									<button type="submit" name="action" th:value="${task.id}" class="btn btn-primary btn-sm btn-block">View</button>
+								</td>
+								<td th:text="${task.title}"></td>
+								<td th:text="${task.due_date} ? ${#dates.format(task.due_date, 'dd-MMM-yyyy')}"></td>
+								<td th:text="${task.estimated_hours}"></td>
+							</form>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			<div class="row">
+    			<div class="panel-heading">
+					<div class="panel-title">
+						<h2 class="title">Resources</h2>
+						<hr />
+					</div>
+	            </div>
+            </div>
+            
+            <div class="row">
+            	<table class="table table-hover table-striped table-bordered">
+            		<thead>
+						<tr>
+							<th style="width: 80px;"></th>
+							<th>User</th>
+							<th>Start Date</th>
+							<th>End Date</th>
+							<th>Rate</th>
+							<th>Agreed Hours p/m</th>
+							<th>Created</th>
+							<th>Updated</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<tr th:each="res : ${project.resource_set}">
+							<form th:action="@{/viewresource}" method="get">
+								<td>
+									<button type="submit" name="action" th:value="${res.id}" class="btn btn-primary btn-sm btn-block">View</button>
+								</td>
+								<td th:text="${res.user}"></td>
+								<td th:text="${res.start_date} ? ${#dates.format(res.start_date, 'dd-MMM-yyyy')}"></td>
+								<td th:text="${res.end_date} ? ${#dates.format(res.end_date, 'dd-MMM-yyyy')}"></td>
+								<td th:text="${res.rate}"></td>
+								<td th:text="${res.agreed_hours_per_month}"></td>
+								<td th:text="${res.created}"></td>
+								<td th:text="${res.updated}"></td>
+							</form>
+						</tr>
+					</tbody>
+            	</table>
+            </div>
+		</div>
+		<nav class="navbar navbar-default navbar-fixed-bottom align-center navbar-xs">
+			<div class="container">
+				Copyright 2017 &copy; Project Explorer
+			</div>
+		</nav>
 	</body>
 </html>

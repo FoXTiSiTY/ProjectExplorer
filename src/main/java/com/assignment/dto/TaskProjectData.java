@@ -2,13 +2,20 @@ package com.assignment.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class TaskProjectData
 {
 	private int pk;
 	private String title;
 	private String description;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date start_date;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date end_date;
+
 	private boolean is_billable;
 	private boolean is_active;
 

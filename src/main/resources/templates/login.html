@@ -7,9 +7,9 @@
         <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
 	    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js" th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
 		<link rel="stylesheet" type="text/css" th:href="@{css/styles.css}" />
+		<script src="js/animate.js" th:src="@{js/animate.js}"></script>
     </head>
     <body>
-    	
     	<div class="container">
    			<div class="row login-row">
     			<div class="panel-heading">
@@ -22,17 +22,17 @@
 	            <div class="main-login main-center">
 	            	<form th:action="@{/login}" method="post" class="form-horizontal">
 	            		<div class="form-group">
+							<div th:if="${param.error}">Invalid username and password.<br /></div>
+					        <div th:if="${param.logout}">You have been logged out.<br /></div>
 	            			<label for="username" class="cols-sm-2 control-label">User Name : </label>
 	            			<div class="cols-sm-10">
-								<div th:if="${param.error}">Invalid username and password.<br /></div>
-						        <div th:if="${param.logout}">You have been logged out.<br /></div>
-								<input type="text" name="username" id="username" value="jacob.zuma" placeholder="Enter your username here" class="form-control"/>
+								<input type="text" name="username" id="username" placeholder="Enter your username here" class="form-control"/>
 							</div>
 	            		</div>
 	            		<div class="form-group">
 	            			<label for="password" class="cols-sm-2 control-label">Password : </label>
 	            			<div class="cols-sm-10">
-								<input type="password" name="password" id="password" value="tangent" class="form-control"/>
+								<input type="password" name="password" id="password" placeholder="Enter your password here" class="form-control"/>
 							</div>
 	            		</div>
 	            		
@@ -43,23 +43,10 @@
 	            </div>
             </div>
     	</div>
-    	
-<!--     	<div class="container"> -->
-<!--     		<div class="row"> -->
-<!--     			<div class="col-md-2 col-md-offset-5"> -->
-<!--     				<div th:if="${param.error}"> -->
-<!-- 			            Invalid username and password. -->
-<!-- 			        </div> -->
-<!-- 			        <div th:if="${param.logout}"> -->
-<!-- 			            You have been logged out. -->
-<!-- 			        </div> -->
-<!--     				<form th:action="@{/login}" method="post"> -->
-<!-- 			            <div><label> User Name : <br /><input type="text" name="username" value="jacob.zuma"/> </label></div> -->
-<!-- 			            <div><label> Password: <br /><input type="password" name="password" value="tangent"/> </label></div> -->
-<!-- 			            <div><input type="submit" value="Sign In"/></div> -->
-<!-- 			        </form> -->
-<!--     			</div> -->
-<!--     		</div> -->
-<!--     	</div> -->
+    	<nav class="navbar navbar-default navbar-fixed-bottom align-center navbar-xs">
+			<div class="container">
+				Copyright 2017 &copy; Project Explorer
+			</div>
+		</nav>
     </body>
 </html>

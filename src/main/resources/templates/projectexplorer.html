@@ -1,45 +1,73 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Projects</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    
-	<link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
-	<script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js" th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
-	<link rel="stylesheet" type="text/css" th:href="@{css/styles.css}" />
-</head>
-<body>
-	<span>Hello World! I have been authenticated!</span>
-	
-	<table>
-		<thead>
-			<tr>
-				<th></th>
-				<th>Title</th>
-				<th>Description</th>
-				<th>Start Date</th>
-				<th>End Date</th>
-				<th>Billable</th>
-				<th>Active</th>
-			</tr>
-		</thead>
+	<head>
+	    <title>Projects</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    
+		<link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+		<script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js" th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+		<link rel="stylesheet" type="text/css" th:href="@{css/styles.css}" />
+		<script src="js/animate.js" th:src="@{js/animate.js}"></script>
+	</head>
+	<body>
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="/">Home</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<form th:action="@{/logout}" method="post">
+				           <input type="submit" value="Log Out" class="logout-button"/>
+						</form>
+					</li>
+				</ul>
+			</div>
+		</nav>
 		
-		<tbody>
-			<tr th:each="project : ${projects}">
-				<form th:action="@{/viewproject}" method="post">
-					<td>
-						<button type="submit" name="action" th:value="${project.pk}">View</button>
-					</td>
-					<td th:text="${project.title}"></td>
-					<td th:text="${project.description}"></td>
-					<td th:text="${project.start_date} ? ${#dates.format(project.start_date, 'dd-MMM-yyyy')}"></td>
-					<td th:text="${project.end_date} ? ${#dates.format(project.end_date, 'dd-MMM-yyyy')}"></td>
-					<td th:if="${project.is_billable}">Yes</td><td th:unless="${project.is_billable}">No</td>
-					<td th:if="${project.is_active}">Yes</td><td th:unless="${project.is_active}">No</td>
-				</form>
-			</tr>
-		</tbody>
-	</table>
-<!-- 	<p th:text="'Token: ' + ${test.token}" /> -->
-</body>
+		<div class="container">
+			<div class="row">
+    			<div class="panel-heading">
+					<div class="panel-title">
+						<h2 class="title">List of Projects</h2>
+						<hr />
+					</div>
+	            </div>
+            </div>
+			
+			<table class="table table-hover table-striped table-bordered">
+				<thead>
+					<tr>
+						<th style="width: 80px;"></th>
+						<th>Title</th>
+						<th>Description</th>
+						<th>Start Date</th>
+						<th>End Date</th>
+						<th>Billable</th>
+						<th>Active</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="project : ${projects}">
+						<form th:action="@{/viewproject}" method="get">
+							<td>
+								<button type="submit" name="action" th:value="${project.pk}" class="btn btn-primary btn-sm btn-block">View</button>
+							</td>
+							<td th:text="${project.title}"></td>
+							<td th:text="${project.description}"></td>
+							<td th:text="${project.start_date} ? ${#dates.format(project.start_date, 'dd-MMM-yyyy')}"></td>
+							<td th:text="${project.end_date} ? ${#dates.format(project.end_date, 'dd-MMM-yyyy')}"></td>
+							<td th:if="${project.is_billable}">Yes</td><td th:unless="${project.is_billable}">No</td>
+							<td th:if="${project.is_active}">Yes</td><td th:unless="${project.is_active}">No</td>
+						</form>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<nav class="navbar navbar-default navbar-fixed-bottom align-center navbar-xs">
+			<div class="container">
+				Copyright 2017 &copy; Project Explorer
+			</div>
+		</nav>
+	</body>
 </html>

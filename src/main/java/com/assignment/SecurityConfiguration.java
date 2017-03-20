@@ -25,18 +25,18 @@ import com.assignment.dto.TokenItem;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-	
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter 
+{
 	@Autowired(required=true)
 	private HttpServletRequest request;
 	
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		
+	protected void configure(HttpSecurity http) throws Exception 
+	{
 		http
 			.authorizeRequests()
 				.antMatchers("/css/**", "/login").permitAll()
-				.antMatchers("/projectexplorer", "/viewproject").authenticated()
+				.antMatchers("/projectexplorer", "/viewproject", "/viewtask", "/viewresource").authenticated()
 				.and()
 			.formLogin()
 				.loginPage("/login")
@@ -48,20 +48,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		
-		auth.authenticationProvider(new AuthenticationProvider() {
-			
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception 
+	{
+		auth.authenticationProvider(new AuthenticationProvider() 
+		{
 			@Override
-			public boolean supports(Class<?> authentication) {
+			public boolean supports(Class<?> authentication) 
+			{
 				return authentication.equals(UsernamePasswordAuthenticationToken.class);
 			}
 			
 			@Override
-			public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-				
+			public Authentication authenticate(Authentication authentication) throws AuthenticationException 
+			{
 				RestTemplate template = new RestTemplate();
-				try {
+				try 
+				{
 					String name = authentication.getName();
 			        String password = authentication.getCredentials().toString();
 			        
@@ -70,7 +72,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					
 					return new UsernamePasswordAuthenticationToken(name, password, new ArrayList<>());
 				}
-				catch (HttpClientErrorException e) {
+				catch (HttpClientErrorException e) 
+				{
 					return null;
 				}
 			}

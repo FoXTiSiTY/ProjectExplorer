@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,8 +22,8 @@ import com.assignment.dto.TaskProjectData;
 import com.assignment.dto.Tasks;
 
 @Controller
-public class ProjectExplorerController {
-	
+public class ProjectExplorerController 
+{
 	@Autowired(required=true)
 	private HttpServletRequest request;
 	
@@ -33,9 +32,8 @@ public class ProjectExplorerController {
 	private Map<Integer, Resources> resourcesMapped;
 	
 	@GetMapping("/projectexplorer")
-	@PostMapping("/projectexplorer")
-	public String loginForm(Model model) {
-		
+	public String loginForm(Model model) 
+	{
 		String token = (String) request.getSession().getAttribute("Token"); // Request token from Session.
 		
 		HttpHeaders header = new HttpHeaders();
@@ -68,41 +66,41 @@ public class ProjectExplorerController {
 		return "projectexplorer";
 	}
 	
-	@PostMapping("/viewproject")
-	public String viewProjectPost(@RequestParam(value="action", required=true) int action, Model model)
+	@GetMapping("/viewproject")
+	public String viewProjectPost(@RequestParam(value="action", required=false) Integer action, Model model)
 	{
-		Projects project = projectsMapped.get(action);
+		Projects project = action != null ? projectsMapped.get(action) : null;
 		
 		if (project == null) // If project could not be found return to projects view. This could happen when going to the /viewproject url.
-			return "projectexplorer"; 
+			return "redirect:projectexplorer"; 
 			
 		model.addAttribute("project", project);
 		
 		return "viewproject";
 	}
 	
-	@PostMapping("/viewtask")
-	public String viewTaskPost(@RequestParam(value="action", required=true) int action, Model model)
+	@GetMapping("/viewtask")
+	public String viewTaskPost(@RequestParam(value="action", required=false) Integer action, Model model)
 	{
-		Tasks task = tasksMapped.get(action);
+		Tasks task = action != null ? tasksMapped.get(action) : null;
 		
 		if (task == null) // If project could not be found return to projects view. This could happen when going to the /viewtask url.
-			return "projectexplorer"; 
+			return "redirect:projectexplorer"; 
 			
 		model.addAttribute("task", task);
 		
 		return "viewtask";
 	}
 	
-	@PostMapping("/viewresource")
-	public String viewResourcePost(@RequestParam(value="action", required=true) int action, Model model)
+	@GetMapping("/viewresource")
+	public String viewResourcePost(@RequestParam(value="action", required=false) Integer action, Model model)
 	{
-		Resources res = resourcesMapped.get(action);
+		Resources res = action != null ? resourcesMapped.get(action) : null;
 		
 		if (res == null) // If project could not be found return to projects view. This could happen when going to the /viewresource url.
-			return "projectexplorer"; 
+			return "redirect:projectexplorer"; 
 			
-		model.addAttribute("res", res);
+		model.addAttribute("resource", res);
 		
 		return "viewresource";
 	}

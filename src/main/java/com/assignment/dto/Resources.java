@@ -2,12 +2,19 @@ package com.assignment.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Resources
 {
 	private int id;
 	private String user;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date start_date;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date end_date;
+
 	private float rate;
 	private double agreed_hours_per_month;
 	private Date created;

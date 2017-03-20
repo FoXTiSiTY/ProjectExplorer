@@ -8,11 +8,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class ViewConfig extends WebMvcConfigurerAdapter
 {
 	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		
-        registry.addRedirectViewController("/", "/projectexplorer");
-        registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/projectexplorer").setViewName("projectexplorer");
-        registry.addViewController("/viewproject").setViewName("viewproject");
+	public void addViewControllers(ViewControllerRegistry registry)
+	{
+		registry.addRedirectViewController("/", "/projectexplorer");
+		registry.addViewController("/login").setViewName("login");
+		registry.addViewController("/projectexplorer").setViewName("projectexplorer");
+		registry.addViewController("/viewproject").setViewName("viewproject");
 	}
 }

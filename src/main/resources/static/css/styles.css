@@ -46,12 +46,81 @@ body
 	margin-right: auto;
 }
 
-h1.title
+h1.title, h2.title
 {
-	color: #337ab7;
+	color: #337AB7;
 }
 
 hr
 {
-	border-color: #b2b2b2;
+	border-color: #B2B2B2;
 }
+
+thead, .navbar-default
+{
+	background-color: #337AB7;
+    color: #FFFFFF;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th 
+{
+	background-color: #649FD3 !important;
+	color: #FFFFFF;
+}
+
+.table-striped > tbody > tr:nth-child(2n) > td, .table-striped > tbody > tr:nth-child(2n) > th 
+{
+	background-color: #E2E9FF;
+}
+
+.detail-row
+{
+	background-color: #FFFFFF;
+    border-radius: 3px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
+}
+
+.detail-row .col-md-3
+{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.logout-button
+{
+	height: 50px;
+    border: none;
+    background: none;
+}
+
+.logout-button:hover
+{
+	background-color: #285F8F;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover, .navbar-nav a:hover
+{
+	background-color: #285F8F !important;
+	color: #FFFFFF;
+}
+
+.navbar-nav a
+{
+	color: #FFFFFF !important;
+}
+
+.container
+{
+	display: none;
+}
+
+
+/* Change size of bottom fixed nav bar for copyright */
+.navbar-xs { min-height:28px; height: 28px; }
+.navbar-xs .navbar-brand{ padding: 0px 12px;font-size: 16px;line-height: 28px; }
+.navbar-xs .navbar-nav > li > a {  padding-top: 0px; padding-bottom: 0px; line-height: 28px; }

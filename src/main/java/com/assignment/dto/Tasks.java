@@ -2,20 +2,25 @@ package com.assignment.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Tasks
 {
 	private int id;
 	private String title;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date due_date;
+
 	private double estimated_hours;
 	private String project;
 	private TaskProjectData project_data;
-	
+
 	public Tasks()
 	{
-		
+
 	}
-	
+
 	public int getId()
 	{
 		return id;

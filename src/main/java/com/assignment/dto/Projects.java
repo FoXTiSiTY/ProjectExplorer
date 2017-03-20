@@ -8,17 +8,17 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Projects implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	private int pk;
 	private String title;
 	private String description;
-	
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date start_date;
-	
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date end_date;
-	
+
 	private boolean is_billable;
 	private boolean is_active;
 	private Tasks[] task_set;

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>Project Details</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    
+	    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+	    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js" th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+		<link rel="stylesheet" type="text/css" th:href="@{css/styles.css}" />
+		<script src="js/animate.js" th:src="@{js/animate.js}"></script>
+	</head>
+	<body>
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<ul class="nav navbar-nav">
+					<li><a href="/">Home</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<form th:action="@{/logout}" method="post">
+				           <input type="submit" value="Log Out" class="logout-button"/>
+						</form>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		
+		<div class="container">
+			<div class="row">
+				<div class="panel-heading">
+					<div class="panel-title">
+						<h2 class="title">Resource Details</h2>
+						<hr />
+					</div>
+	            </div>
+			</div>
+			
+			<div class="row detail-row">
+				<div class="col-md-3">
+					<label for="user" class="control-label">User</label><br />
+					<input id="user" type="text" th:field="*{resource.user}" class="form-control" />
+				</div>
+				<div class="col-md-3">
+					<label for="start_date" class="control-label">Start Date</label><br />
+					<input id="start_date" type="date" th:field="*{resource.start_date}" class="form-control" />
+				</div>
+				<div class="col-md-3">
+					<label for="end_date" class="control-label">End Date</label><br />
+					<input id="end_date" type="date" th:field="*{resource.end_date}" class="form-control" />
+				</div>
+				<div class="col-md-3">
+					<label for="rate" class="control-label">Rate</label><br />
+					<input id="rate" type="number" th:field="*{resource.rate}" class="form-control" />
+				</div>
+				<div class="col-md-3">
+					<label for="hourspm" class="control-label">Agreed Hours p/m</label><br />
+					<input id="hourspm" type="number" th:field="*{resource.agreed_hours_per_month}" class="form-control" />
+				</div>
+				<div class="col-md-3">
+					<label for="created" class="control-label">Created</label><br />
+					<input id="created" type="text" th:field="*{resource.created}" class="form-control" />
+				</div>
+				<div class="col-md-3">
+					<label for="updated" class="control-label">Updated</label><br />
+					<input id="updated" type="text" th:field="*{resource.updated}" class="form-control" />
+				</div>
+			</div>
+		</div>
+		<nav class="navbar navbar-default navbar-fixed-bottom align-center navbar-xs">
+			<div class="container">
+				Copyright 2017 &copy; Project Explorer
+			</div>
+		</nav>
+	</body>
+</html>
