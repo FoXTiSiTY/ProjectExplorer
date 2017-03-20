@@ -33,7 +33,6 @@ public class ProjectExplorerController {
 	private Map<Integer, Resources> resourcesMapped;
 	
 	@GetMapping("/projectexplorer")
-	@PostMapping("/projectexplorer")
 	public String loginForm(Model model) {
 		
 		String token = (String) request.getSession().getAttribute("Token"); // Request token from Session.
